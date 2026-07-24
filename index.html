@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRAI DEPT. | 未来デパート</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* カラーパレットの設定 */
+        :root {
+            --dora-blue: #0096D6; /* メインのドラえもんブルー */
+            --dora-red: #E3001B;  /* アクセントの赤（ほんの少しだけ使用） */
+            --base-white: #FFFFFF;
+            --bg-light: #F8F9FA;  /* 背景用のわずかにグレーがかった白 */
+            --text-dark: #2C3E50;
+            --text-muted: #7F8C8D;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+        }
+
+        /* --- ヘッダー --- */
+        header {
+            background-color: var(--base-white);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--dora-blue);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav ul li {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        nav ul li:hover {
+            color: var(--dora-blue);
+        }
+
+        .cart-btn {
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        /* 🔴 ほんのちょっとの赤（カートのバッジ） */
+        .cart-badge {
+            background-color: var(--dora-red);
+            color: var(--base-white);
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 10px;
+            position: absolute;
+            top: -10px;
+            right: -15px;
+        }
+
+        /* --- ヒーローセクション（トップの大きな領域） --- */
+        .hero {
+            background-color: var(--base-white);
+            text-align: center;
+            padding: 8rem 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1.2rem;
+            letter-spacing: 4px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        /* --- 商品一覧（グリッド） --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5% 6rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 3rem;
+            text-align: center;
+            letter-spacing: 3px;
+            color: var(--text-dark);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* 商品カード */
+        .card {
+            background: var(--base-white);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 150, 214, 0.08); /* 影にもほんのりブルーを */
+        }
+
+        /* 🔴 ほんのちょっとの赤（NEWバッジ） */
+        .badge-new {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--dora-red);
+            color: var(--base-white);
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* 画像プレースホルダー（実際の画像を入れる場所） */
+        .card-img {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #F0F4F8, #E1E8ED);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #A0B0B9;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .card-content {
+            padding: 1.8rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            min-height: 40px;
+        }
+
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dora-blue);
+        }
+
+        /* カート追加ボタン */
+        .btn-add {
+            background-color: transparent;
+            border: 1px solid var(--dora-blue);
+            color: var(--dora-blue);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add:hover {
+            background-color: var(--dora-blue);
+            color: var(--base-white);
+        }
+
+        /* --- フッター --- */
+        footer {
+            background-color: var(--base-white);
+            text-align: center;
+            padding: 4rem 2rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* スマホ対応 */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">MIRAI DEPT.</div>
+        <nav>
+            <ul>
+                <li>新着アイテム</li>
+                <li>カテゴリー</li>
+                <li>ライフスタイル</li>
+                <li>サポート</li>
+            </ul>
+        </nav>
+        <button class="cart-btn">
+            CART
+            <span class="cart-badge">2</span>
+        </button>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>22世紀の日常を、あなたに。</h1>
+            <p>暮らしをシームレスにアップデートする、洗練されたひみつ道具コレクション</p>
+        </section>
+
+        <section class="container">
+            <h2 class="section-title">FEATURED ITEMS</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <span class="badge-new">NEW</span>
+                    <div class="card-img">Anywhere Door</div>
+                    <div class="card-content">
+                        <h3 class="card-title">空間移動ポータル "Anywhere"</h3>
+                        <p class="card-desc">お好みのロケーションへ瞬時にアクセス。インテリアに馴染むミニマルな木目調デザイン。</p>
+                        <div class="card-bottom">
+                            <span class="price">¥680,000</span>
+                            <button class="btn-add">追加</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Take-Copter</div>
+                    <div class="card-content">
+                        <h3 class="card-title">パーソナルモビリティ "Take-C"</h3>
+                        <p class="card-desc">頭部に装着するだけで、自由な空中散歩を。都市環境に配慮した静音モーター搭載モデル。</p>
+                        <div class="card-bottom">
+                            <span class="price">¥120,000</span>
+                            <button class="btn-add">追加</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Time Wrap</div>
+                    <div class="card-content">
+                        <h3 class="card-title">時間還元ファブリック "Time Wrap"</h3>
+                        <p class="card-desc">対象物の状態を過去・未来へシフト。肌触りの良い上質なオーガニックマテリアルを使用。</p>
+                        <div class="card-bottom">
+                            <span class="price">¥45,000</span>
+                            <button class="btn-add">追加</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Konjac-Translator</div>
+                    <div class="card-content">
+                        <h3 class="card-title">多言語翻訳フード "Konjac"</h3>
+                        <p class="card-desc">食すだけで全言語への対応が可能に。日常的に取り入れやすい、無添加のヘルシーゼリー。</p>
+                        <div class="card-bottom">
+                            <span class="price">¥3,200</span>
+                            <button class="btn-add">追加</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2112 MIRAI DEPARTMENT STORE. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
