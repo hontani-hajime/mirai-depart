@@ -7,29 +7,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* カラーパレットの設定 */
+        /* --- カラー & 基本設定 --- */
         :root {
-            --dora-blue: #0096D6; /* メインのドラえもんブルー */
-            --dora-red: #E3001B;  /* アクセントの赤（ほんの少しだけ使用） */
+            --dora-blue: #0096D6;
+            --dora-red: #E3001B;
             --base-white: #FFFFFF;
-            --bg-light: #F8F9FA;  /* 背景用のわずかにグレーがかった白 */
+            --bg-light: #F8F9FA;
             --text-dark: #2C3E50;
             --text-muted: #7F8C8D;
+            --border-color: #E1E8ED;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            color: var(--text-dark);
-            background-color: var(--bg-light);
-            line-height: 1.6;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text-dark); background-color: var(--bg-light); line-height: 1.6; }
 
         /* --- ヘッダー --- */
         header {
@@ -43,43 +36,18 @@
             z-index: 100;
             box-shadow: 0 2px 15px rgba(0,0,0,0.03);
         }
-
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            color: var(--dora-blue);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-        }
-
-        nav ul li {
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        nav ul li:hover {
-            color: var(--dora-blue);
-        }
-
+        .logo { font-size: 1.4rem; font-weight: 700; letter-spacing: 3px; color: var(--dora-blue); }
+        
         .cart-btn {
             position: relative;
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 1.5rem; /* アイコンを少し大きめに */
             color: var(--text-dark);
+            transition: color 0.3s;
         }
-
-        /* 🔴 ほんのちょっとの赤（カートのバッジ） */
+        .cart-btn:hover { color: var(--dora-blue); }
         .cart-badge {
             background-color: var(--dora-red);
             color: var(--base-white);
@@ -88,124 +56,28 @@
             padding: 2px 6px;
             border-radius: 10px;
             position: absolute;
-            top: -10px;
-            right: -15px;
+            top: -5px;
+            right: -10px;
+            display: none; /* 初期状態は非表示 */
         }
 
-        /* --- ヒーローセクション（トップの大きな領域） --- */
-        .hero {
-            background-color: var(--base-white);
-            text-align: center;
-            padding: 8rem 2rem;
-            margin-bottom: 4rem;
-        }
+        /* --- ヒーローセクション --- */
+        .hero { background-color: var(--base-white); text-align: center; padding: 6rem 2rem; margin-bottom: 4rem; }
+        .hero h1 { font-size: 2.2rem; font-weight: 300; margin-bottom: 1rem; letter-spacing: 4px; }
+        .hero p { color: var(--text-muted); font-size: 0.95rem; letter-spacing: 2px; }
 
-        .hero h1 {
-            font-size: 2.5rem;
-            font-weight: 300;
-            margin-bottom: 1.2rem;
-            letter-spacing: 4px;
-        }
-
-        .hero p {
-            color: var(--text-muted);
-            font-size: 1rem;
-            letter-spacing: 2px;
-        }
-
-        /* --- 商品一覧（グリッド） --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 5% 6rem;
-        }
-
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin-bottom: 3rem;
-            text-align: center;
-            letter-spacing: 3px;
-            color: var(--text-dark);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 2.5rem;
-        }
-
-        /* 商品カード */
-        .card {
-            background: var(--base-white);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            position: relative;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 150, 214, 0.08); /* 影にもほんのりブルーを */
-        }
-
-        /* 🔴 ほんのちょっとの赤（NEWバッジ） */
-        .badge-new {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background-color: var(--dora-red);
-            color: var(--base-white);
-            font-size: 0.65rem;
-            font-weight: bold;
-            padding: 4px 12px;
-            border-radius: 20px;
-            letter-spacing: 1px;
-        }
-
-        /* 画像プレースホルダー（実際の画像を入れる場所） */
-        .card-img {
-            width: 100%;
-            height: 280px;
-            background: linear-gradient(135deg, #F0F4F8, #E1E8ED);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #A0B0B9;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-        }
-
-        .card-content {
-            padding: 1.8rem;
-        }
-
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            min-height: 40px;
-        }
-
-        .card-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--dora-blue);
-        }
-
-        /* カート追加ボタン */
+        /* --- 商品一覧 --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5% 6rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2.5rem; }
+        .card { background: var(--base-white); border-radius: 8px; overflow: hidden; transition: transform 0.4s ease, box-shadow 0.4s ease; position: relative; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0, 150, 214, 0.08); }
+        .card-img { width: 100%; height: 260px; background: linear-gradient(135deg, #F0F4F8, #E1E8ED); display: flex; align-items: center; justify-content: center; color: #A0B0B9; font-size: 0.85rem; letter-spacing: 1px; }
+        .card-content { padding: 1.8rem; }
+        .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .card-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; min-height: 40px; }
+        .card-bottom { display: flex; justify-content: space-between; align-items: center; }
+        .price { font-size: 1.2rem; font-weight: 700; color: var(--dora-blue); }
+        
         .btn-add {
             background-color: transparent;
             border: 1px solid var(--dora-blue);
@@ -217,110 +89,98 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
+        .btn-add:hover { background-color: var(--dora-blue); color: var(--base-white); }
 
-        .btn-add:hover {
-            background-color: var(--dora-blue);
-            color: var(--base-white);
+        /* --- カートドロワー (右側からスライドイン) --- */
+        .drawer-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            opacity: 0; visibility: hidden;
+            transition: 0.3s ease;
+            z-index: 998;
+        }
+        .drawer-overlay.active { opacity: 1; visibility: visible; }
+        
+        .drawer {
+            position: fixed; top: 0; right: -400px;
+            width: 100%; max-width: 400px; height: 100%;
+            background: var(--base-white);
+            box-shadow: -2px 0 15px rgba(0,0,0,0.1);
+            transition: 0.3s ease-out;
+            z-index: 999;
+            display: flex; flex-direction: column;
+        }
+        .drawer-overlay.active .drawer { right: 0; }
+        
+        .drawer-header { padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .drawer-header h2 { font-size: 1.2rem; font-weight: 500; letter-spacing: 2px; }
+        .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
+        
+        .cart-items-container { flex: 1; overflow-y: auto; padding: 1.5rem; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px dashed var(--border-color); }
+        .item-info h4 { font-size: 0.9rem; margin-bottom: 0.3rem; }
+        .item-price { font-size: 0.85rem; color: var(--text-muted); }
+        
+        .quantity-control { display: flex; align-items: center; gap: 10px; }
+        .qty-btn { background: var(--bg-light); border: 1px solid var(--border-color); width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 1rem; color: var(--text-dark); display: flex; align-items: center; justify-content: center;}
+        .qty-btn:hover { border-color: var(--dora-blue); color: var(--dora-blue); }
+        
+        .drawer-footer { padding: 1.5rem; border-top: 1px solid var(--border-color); background: var(--bg-light); text-align: center; }
+        .total-price-wrap { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; margin-bottom: 1.5rem; }
+        
+        .checkout-btn {
+            width: 100%; padding: 1rem;
+            background-color: var(--dora-blue); color: var(--base-white);
+            border: none; border-radius: 30px;
+            font-size: 1rem; font-weight: bold; letter-spacing: 2px;
+            cursor: pointer; transition: 0.3s;
+        }
+        .checkout-btn:hover { background-color: #007bb5; }
+        .checkout-btn:disabled { background-color: var(--text-muted); cursor: not-allowed; }
+
+        /* お会計時の演出 */
+        .spinner {
+            display: none; border: 3px solid rgba(0, 0, 0, 0.1); border-top: 3px solid var(--dora-blue);
+            border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .error-msg {
+            display: none; color: var(--dora-red); font-size: 0.85rem; margin-top: 1rem; font-weight: 500;
         }
 
-        /* --- フッター --- */
-        footer {
-            background-color: var(--base-white);
-            text-align: center;
-            padding: 4rem 2rem;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            letter-spacing: 1px;
+        /* --- トースト通知（商品を追加しました！） --- */
+        .toast {
+            position: fixed; bottom: -60px; left: 50%; transform: translateX(-50%);
+            background: var(--dora-blue); color: var(--base-white);
+            padding: 12px 30px; border-radius: 30px; font-size: 0.9rem; font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0, 150, 214, 0.3);
+            transition: bottom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
+            opacity: 0; z-index: 1000; pointer-events: none;
         }
+        .toast.show { bottom: 40px; opacity: 1; }
 
-        /* スマホ対応 */
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-        }
+        footer { text-align: center; padding: 4rem 2rem; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo">MIRAI DEPT.</div>
-        <nav>
-            <ul>
-                <li>新着アイテム</li>
-                <li>カテゴリー</li>
-                <li>ライフスタイル</li>
-                <li>サポート</li>
-            </ul>
-        </nav>
-        <button class="cart-btn">
-            CART
-            <span class="cart-badge">2</span>
+        <button class="cart-btn" onclick="toggleCart()">
+            <i class="fa-thin fa-cart-arrow-down"></i>
+            <span class="cart-badge" id="cart-badge">0</span>
         </button>
     </header>
 
     <main>
         <section class="hero">
             <h1>22世紀の日常を、あなたに。</h1>
-            <p>暮らしをシームレスにアップデートする、洗練されたひみつ道具コレクション</p>
+            <p>暮らしをシームレスにアップデートする、洗練されたコレクション</p>
         </section>
 
         <section class="container">
-            <h2 class="section-title">FEATURED ITEMS</h2>
-            
-            <div class="grid">
-                <div class="card">
-                    <span class="badge-new">NEW</span>
-                    <div class="card-img">Anywhere Door</div>
-                    <div class="card-content">
-                        <h3 class="card-title">空間移動ポータル "Anywhere"</h3>
-                        <p class="card-desc">お好みのロケーションへ瞬時にアクセス。インテリアに馴染むミニマルな木目調デザイン。</p>
-                        <div class="card-bottom">
-                            <span class="price">¥680,000</span>
-                            <button class="btn-add">追加</button>
-                        </div>
-                    </div>
+            <div class="grid" id="product-grid">
                 </div>
-
-                <div class="card">
-                    <div class="card-img">Take-Copter</div>
-                    <div class="card-content">
-                        <h3 class="card-title">パーソナルモビリティ "Take-C"</h3>
-                        <p class="card-desc">頭部に装着するだけで、自由な空中散歩を。都市環境に配慮した静音モーター搭載モデル。</p>
-                        <div class="card-bottom">
-                            <span class="price">¥120,000</span>
-                            <button class="btn-add">追加</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-img">Time Wrap</div>
-                    <div class="card-content">
-                        <h3 class="card-title">時間還元ファブリック "Time Wrap"</h3>
-                        <p class="card-desc">対象物の状態を過去・未来へシフト。肌触りの良い上質なオーガニックマテリアルを使用。</p>
-                        <div class="card-bottom">
-                            <span class="price">¥45,000</span>
-                            <button class="btn-add">追加</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-img">Konjac-Translator</div>
-                    <div class="card-content">
-                        <h3 class="card-title">多言語翻訳フード "Konjac"</h3>
-                        <p class="card-desc">食すだけで全言語への対応が可能に。日常的に取り入れやすい、無添加のヘルシーゼリー。</p>
-                        <div class="card-bottom">
-                            <span class="price">¥3,200</span>
-                            <button class="btn-add">追加</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </section>
     </main>
 
@@ -328,5 +188,169 @@
         <p>&copy; 2112 MIRAI DEPARTMENT STORE. All rights reserved.</p>
     </footer>
 
+    <div class="drawer-overlay" id="drawer-overlay" onclick="toggleCart()">
+        <div class="drawer" onclick="event.stopPropagation()">
+            <div class="drawer-header">
+                <h2>CART</h2>
+                <button class="close-btn" onclick="toggleCart()">&times;</button>
+            </div>
+            <div class="cart-items-container" id="cart-items">
+                </div>
+            <div class="drawer-footer">
+                <div class="total-price-wrap">
+                    <span>TOTAL</span>
+                    <span id="cart-total">¥0</span>
+                </div>
+                <button class="checkout-btn" id="checkout-btn" onclick="processCheckout()">お会計へ進む</button>
+                <div class="spinner" id="spinner"></div>
+                <div class="error-msg" id="error-msg">
+                    <i class="fa-solid fa-triangle-exclamation"></i> 22世紀のタイムサーバーとの通信に失敗しました。現在の時代からは決済できません。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">商品をカートに追加しました</div>
+
+    <script>
+        // --- 1. 商品データ（後で本番データに入れ替えやすいように設計） ---
+        const products = [
+            { id: 1, name: '空間移動ポータル "Anywhere"', desc: 'お好みのロケーションへ瞬時にアクセス。', price: 680000, imgText: 'Anywhere Door' },
+            { id: 2, name: 'パーソナルモビリティ "Take-C"', desc: '頭部に装着するだけで、自由な空中散歩を。', price: 120000, imgText: 'Take-Copter' },
+            { id: 3, name: '時間還元ファブリック "Time Wrap"', desc: '対象物の状態を過去・未来へシフト。', price: 45000, imgText: 'Time Wrap' },
+            { id: 4, name: '多言語翻訳フード "Konjac"', desc: '日常的に取り入れやすい、無添加のヘルシーゼリー。', price: 3200, imgText: 'Konjac-Translator' }
+        ];
+
+        let cart = {}; // { productId: quantity } の形式で管理
+
+        // --- 2. 画面に商品を並べる ---
+        const grid = document.getElementById('product-grid');
+        products.forEach(p => {
+            grid.innerHTML += `
+                <div class="card">
+                    <div class="card-img">${p.imgText}</div>
+                    <div class="card-content">
+                        <h3 class="card-title">${p.name}</h3>
+                        <p class="card-desc">${p.desc}</p>
+                        <div class="card-bottom">
+                            <span class="price">¥${p.price.toLocaleString()}</span>
+                            <button class="btn-add" onclick="addToCart(${p.id})">追加</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // --- 3. カート機能 ---
+        function addToCart(id) {
+            if (cart[id]) {
+                cart[id]++;
+            } else {
+                cart[id] = 1;
+            }
+            updateCartUI();
+            showToast();
+        }
+
+        function updateQuantity(id, change) {
+            if (cart[id]) {
+                cart[id] += change;
+                if (cart[id] <= 0) delete cart[id];
+            }
+            updateCartUI();
+            
+            // エラーメッセージが出っぱなしなら消す
+            document.getElementById('error-msg').style.display = 'none';
+            document.getElementById('checkout-btn').style.display = 'block';
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalEl = document.getElementById('cart-total');
+            const badge = document.getElementById('cart-badge');
+            
+            cartItemsContainer.innerHTML = '';
+            let totalAmount = 0;
+            let totalItems = 0;
+
+            for (const id in cart) {
+                const qty = cart[id];
+                const product = products.find(p => p.id == id);
+                if (product) {
+                    totalAmount += product.price * qty;
+                    totalItems += qty;
+                    cartItemsContainer.innerHTML += `
+                        <div class="cart-item">
+                            <div class="item-info">
+                                <h4>${product.name}</h4>
+                                <div class="item-price">¥${product.price.toLocaleString()}</div>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQuantity(${id}, -1)">-</button>
+                                <span>${qty}</span>
+                                <button class="qty-btn" onclick="updateQuantity(${id}, 1)">+</button>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            if (totalItems === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align:center; color:#7F8C8D; margin-top:2rem;">カートは空です。</p>';
+            }
+
+            cartTotalEl.innerText = `¥${totalAmount.toLocaleString()}`;
+            
+            // バッジの更新
+            if (totalItems > 0) {
+                badge.innerText = totalItems;
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // --- 4. カート開閉 ---
+        function toggleCart() {
+            const overlay = document.getElementById('drawer-overlay');
+            overlay.classList.toggle('active');
+        }
+
+        // --- 5. トースト通知（ポワンと出るやつ） ---
+        let toastTimeout;
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500); // 2.5秒後に消える
+        }
+
+        // --- 6. お会計ジョーク機能 ---
+        function processCheckout() {
+            const btn = document.getElementById('checkout-btn');
+            const spinner = document.getElementById('spinner');
+            const errorMsg = document.getElementById('error-msg');
+            
+            // カートが空なら反応しない
+            if (Object.keys(cart).length === 0) return;
+
+            // ボタンを隠してグルグルを表示
+            btn.style.display = 'none';
+            spinner.style.display = 'block';
+            errorMsg.style.display = 'none';
+
+            // 2秒後にエラーを出す
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                errorMsg.style.display = 'block';
+            }, 2000);
+        }
+
+        // 初期化
+        updateCartUI();
+    </script>
 </body>
 </html>
