@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /カラーと基本設定/
         :root {
             --dora-blue: #0096D6;
             --dora-red: #E3001B;
@@ -28,7 +27,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Noto Sans JP', sans-serif; color: var(--text-dark); background-color: var(--bg-light); line-height: 1.6; }
 
-        /ヘッダー/
         header {
             background-color: var(--base-white);
             padding: 1.5rem 5%;
@@ -67,29 +65,25 @@
             display: none;
         }
 
-        /ヒーローセク/
         .hero { background-color: var(--base-white); text-align: center; padding: 6rem 2rem; margin-bottom: 4rem; }
         .hero h1 { font-size: 2.2rem; font-weight: 300; margin-bottom: 1rem; letter-spacing: 4px; }
         .hero p { color: var(--text-muted); font-size: 0.95rem; letter-spacing: 2px; }
 
-        /商品/
         .container { max-width: 1200px; margin: 0 auto; padding: 0 5% 6rem; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2.5rem; }
         
         .card { background: var(--base-white); border-radius: 8px; overflow: hidden; transition: transform 0.4s ease, box-shadow 0.4s ease; position: relative; }
         .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0, 150, 214, 0.08); }
         
-        /画像の設定/
         .card-img-tag { 
             width: 100%; 
             height: 260px; 
-            object-fit: contain; /*これで画像全体が収まる*/
-            background: linear-gradient(135deg, #F0F4F8, #E1E8ED); /*背景色でオシャンティに*/
+            object-fit: contain;
+            background: linear-gradient(135deg, #F0F4F8, #E1E8ED);
             display: block; 
             padding: 1.5rem;
         }
         
-        /*中古*/
         .badge-used {
             position: absolute;
             top: 15px;
@@ -123,7 +117,6 @@
         }
         .btn-add:hover { background-color: var(--dora-blue); color: var(--base-white); }
 
-        /*カート*/
         .drawer-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.4);
@@ -169,7 +162,6 @@
         }
         .checkout-btn:hover { background-color: #007bb5; }
 
-        /*会計*/
         .spinner {
             display: none; border: 3px solid rgba(0, 0, 0, 0.1); border-top: 3px solid var(--dora-blue);
             border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto;
@@ -179,7 +171,6 @@
             display: none; color: var(--dora-red); font-size: 0.85rem; margin-top: 1rem; font-weight: 500;
         }
 
-        /*トースト通知*/
         .toast {
             position: fixed; bottom: -60px; left: 50%; transform: translateX(-50%);
             background: var(--dora-blue); color: var(--base-white);
@@ -243,7 +234,6 @@
     <div class="toast" id="toast">商品をカートに追加しました</div>
 
     <script>
-        //1ひみつ道具のデータ
         const products = [
             { id: 1, name: 'どこでもドア', desc: '思い描いた場所へ一瞬で。定番の木製モデル。', price: 150000000, img: 'dokodemo-door.png' },
             { id: 2, name: 'タケコプター', desc: '空飛ぶ自由をあなたに。静音モーター搭載の最新型。', price: 85000000, img: 'takekoputa.png' },
@@ -257,7 +247,6 @@
 
         let cart = {};
 
-        //2画面に商品を並べる
         const grid = document.getElementById('product-grid');
         products.forEach(p => {
             const badgeHtml = p.isUsed ? `<span class="badge-used">中古</span>` : '';
@@ -278,7 +267,6 @@
             `;
         });
 
-        //3カート
         function addToCart(id) {
             cart[id] = (cart[id] || 0) + 1;
             updateCartUI();
@@ -292,7 +280,6 @@
             }
             updateCartUI();
             
-            //エラーリセット
             document.getElementById('error-msg').style.display = 'none';
             document.getElementById('checkout-btn').style.display = 'block';
         }
@@ -342,12 +329,10 @@
             }
         }
 
-        //4カート開閉
         function toggleCart() {
             document.getElementById('drawer-overlay').classList.toggle('active');
         }
 
-        //トースト通知
         let toastTimeout;
         function showToast() {
             const toast = document.getElementById('toast');
@@ -356,7 +341,6 @@
             toastTimeout = setTimeout(() => toast.classList.remove('show'), 2500);
         }
 
-        //6会計
         function processCheckout() {
             const btn = document.getElementById('checkout-btn');
             const spinner = document.getElementById('spinner');
@@ -374,7 +358,6 @@
             }, 2000);
         }
 
-        // 初期化
         updateCartUI();
     </script>
 </body>
